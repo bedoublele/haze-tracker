@@ -1,0 +1,20 @@
+{
+  "id": "./",
+  "name": "Haze Tracker SG",
+  "short_name": "Haze SG",
+  "description": "Live 24-hour PSI and 1-hour PM2.5 for each region of Singapore, with haze alerts.",
+  "lang": "en-SG",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#17303f",
+  "theme_color": "#17303f",
+  "categories": ["weather", "utilities"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

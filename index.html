@@ -1,51 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-SG">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello, World</title>
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: #eaf6ff;
-      font-family: system-ui, sans-serif;
-    }
-    h1 { color: #2d5a27; }
-    .rose { overflow: visible; }
-    .plant { transform-origin: 120px 335px; animation: sway 4s ease-in-out infinite; }
-    .bloom { transform-origin: 120px 150px; animation: bloom 4s ease-in-out infinite; }
-    @keyframes sway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
-    @keyframes bloom { 0%,100% { transform: scale(0.94); } 50% { transform: scale(1.05); } }
-    @media (prefers-reduced-motion: reduce) { .plant, .bloom { animation: none; } }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Haze Tracker SG</title>
+  <meta name="description" content="Live 24-hour PSI and 1-hour PM2.5 for each region of Singapore, with haze alerts.">
+  <meta name="theme-color" content="#17303f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Haze SG">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Hello, World</h1>
-  <svg class="rose" width="240" height="340" viewBox="0 0 240 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A red rose">
-    <g class="plant"><!-- stem -->
-    <path d="M120 160 C115 220 125 270 120 330" stroke="#2e7d32" stroke-width="8" fill="none" stroke-linecap="round"/>
-    <!-- thorns -->
-    <path d="M118 215 L104 210 L117 225 Z" fill="#2e7d32"/>
-    <path d="M122 265 L136 260 L123 275 Z" fill="#2e7d32"/>
-    <!-- leaves -->
-    <path d="M121 250 C160 225 190 235 200 215 C185 255 150 270 121 250 Z" fill="#43a047" stroke="#2e7d32" stroke-width="2"/>
-    <path d="M119 290 C80 265 50 275 40 255 C55 295 90 310 119 290 Z" fill="#43a047" stroke="#2e7d32" stroke-width="2"/>
-    <!-- sepals -->
-    <path d="M85 140 C95 160 110 165 120 160 C130 165 145 160 155 140 C140 150 130 150 120 148 C110 150 100 150 85 140 Z" fill="#2e7d32"/>
-    <g class="bloom"><!-- outer petals -->
-    <path d="M70 100 C60 130 85 155 120 155 C155 155 180 130 170 100 C160 115 140 120 120 120 C100 120 80 115 70 100 Z" fill="#b71c1c" stroke="#7f0000" stroke-width="2"/>
-    <path d="M72 95 C55 60 85 35 105 45 C90 65 85 85 100 110 C85 110 75 105 72 95 Z" fill="#c62828" stroke="#7f0000" stroke-width="2"/>
-    <path d="M168 95 C185 60 155 35 135 45 C150 65 155 85 140 110 C155 110 165 105 168 95 Z" fill="#c62828" stroke="#7f0000" stroke-width="2"/>
-    <!-- inner petals -->
-    <path d="M95 112 C85 75 105 45 120 45 C135 45 155 75 145 112 C135 122 105 122 95 112 Z" fill="#d32f2f" stroke="#7f0000" stroke-width="2"/>
-    <path d="M105 105 C100 80 110 62 120 62 C130 62 140 80 135 105 C128 112 112 112 105 105 Z" fill="#e53935" stroke="#7f0000" stroke-width="2"/>
-    <path d="M112 62 C116 75 124 75 128 62 C124 55 116 55 112 62 Z" fill="#b71c1c"/>
-    <path d="M110 100 C116 88 126 88 132 100" stroke="#7f0000" stroke-width="2" fill="none" stroke-linecap="round"/>
-  </g></g></svg>
+  <header class="top">
+    <div class="brand">
+      <img src="icons/icon.svg" alt="" width="40" height="40">
+      <div>
+        <h1>Haze Tracker</h1>
+        <p id="updated" class="muted" aria-live="polite">Loading&hellip;</p>
+      </div>
+    </div>
+    <button id="refresh" class="icon-btn" type="button" aria-label="Refresh readings">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <p id="banner" class="banner" role="status" hidden></p>
+
+    <section aria-labelledby="h-now">
+      <h2 id="h-now">Air quality now</h2>
+      <div id="national"></div>
+      <div id="regions" class="compass" aria-live="polite"></div>
+      <p class="note muted">
+        <strong>24-hr PSI</strong> is NEA&rsquo;s official index. <strong>1-hr PM2.5</strong> is the latest hourly
+        fine-particle reading in &micro;g/m&sup3;; NEA does not publish a 1-hour PSI.
+      </p>
+    </section>
+
+    <section class="card" aria-labelledby="h-alert">
+      <h2 id="h-alert">Haze alert</h2>
+      <form id="alert-form" novalidate>
+        <label for="region">Region</label>
+        <select id="region"></select>
+
+        <label for="threshold">Alert me when 24-hr PSI reaches</label>
+        <input id="threshold" type="number" inputmode="numeric" min="1" max="500" step="1" value="100" required>
+        <div class="chips" role="group" aria-label="Threshold presets">
+          <button type="button" class="chip" data-value="51">Moderate 51</button>
+          <button type="button" class="chip" data-value="101">Unhealthy 101</button>
+          <button type="button" class="chip" data-value="201">Very unhealthy 201</button>
+        </div>
+
+        <div class="actions">
+          <button id="save" type="submit" class="primary">Turn on alerts</button>
+          <button id="off" type="button" hidden>Turn off</button>
+        </div>
+        <p id="alert-status" class="status" role="status"></p>
+      </form>
+      <button id="test" type="button" class="link">Send a test notification</button>
+    </section>
+
+    <section id="install" class="card" hidden aria-labelledby="h-install">
+      <h2 id="h-install">Add to home screen</h2>
+      <p id="install-text"></p>
+      <button id="install-btn" type="button" class="primary" hidden>Install app</button>
+    </section>
+  </main>
+
+  <footer class="muted">
+    <p>
+      Data: National Environment Agency via <a href="https://data.gov.sg" rel="noopener">data.gov.sg</a>,
+      under the <a href="https://data.gov.sg/open-data-licence" rel="noopener">Singapore Open Data Licence</a>.
+      This is an independent app, not an official NEA product. For health advice see
+      <a href="https://www.haze.gov.sg" rel="noopener">haze.gov.sg</a>.
+    </p>
+  </footer>
+
+  <script src="lib.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

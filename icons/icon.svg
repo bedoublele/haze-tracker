@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Haze Tracker</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17303f"/><stop offset=".55" stop-color="#5b5a58"/><stop offset="1" stop-color="#b9824a"/>
+    </linearGradient>
+    <radialGradient id="sun" cx=".5" cy=".4" r=".7">
+      <stop offset="0" stop-color="#ffe3a0"/><stop offset=".6" stop-color="#ffab4d"/><stop offset="1" stop-color="#f2762e"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#sky)"/>
+  <g transform="translate(256 256) scale(1.0) translate(-256 -256)">
+    <circle cx="256" cy="222" r="112" fill="url(#sun)"/>
+    <rect x="96" y="236" width="320" height="30" rx="15" fill="#efe4d3" opacity=".55"/>
+    <rect x="68" y="282" width="376" height="30" rx="15" fill="#efe4d3" opacity=".78"/>
+    <rect x="112" y="328" width="288" height="30" rx="15" fill="#efe4d3" opacity=".92"/>
+    <rect x="148" y="374" width="216" height="26" rx="13" fill="#efe4d3" opacity=".6"/>
+  </g>
+</svg>

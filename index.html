@@ -16,36 +16,36 @@
       font-family: system-ui, sans-serif;
     }
     h1 { color: #2d5a27; }
+    .rose { overflow: visible; }
+    .plant { transform-origin: 120px 335px; animation: sway 4s ease-in-out infinite; }
+    .bloom { transform-origin: 120px 150px; animation: bloom 4s ease-in-out infinite; }
+    @keyframes sway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    @keyframes bloom { 0%,100% { transform: scale(0.94); } 50% { transform: scale(1.05); } }
+    @media (prefers-reduced-motion: reduce) { .plant, .bloom { animation: none; } }
   </style>
 </head>
 <body>
   <h1>Hello, World</h1>
-  <svg width="240" height="340" viewBox="0 0 240 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A long-stemmed red rose with dewdrops">
-    <!-- stem -->
-    <path d="M120 150 C112 210 128 270 120 335" stroke="#1b5e20" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <svg class="rose" width="240" height="340" viewBox="0 0 240 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A red rose">
+    <g class="plant"><!-- stem -->
+    <path d="M120 160 C115 220 125 270 120 330" stroke="#2e7d32" stroke-width="8" fill="none" stroke-linecap="round"/>
     <!-- thorns -->
-    <path d="M116 200 L100 194 L115 212 Z" fill="#1b5e20"/>
-    <path d="M124 250 L140 244 L125 262 Z" fill="#1b5e20"/>
+    <path d="M118 215 L104 210 L117 225 Z" fill="#2e7d32"/>
+    <path d="M122 265 L136 260 L123 275 Z" fill="#2e7d32"/>
     <!-- leaves -->
-    <path d="M123 225 C160 200 195 210 208 188 C198 235 155 250 123 225 Z" fill="#388e3c" stroke="#1b5e20" stroke-width="2"/>
-    <path d="M118 285 C82 262 48 272 36 250 C48 295 90 308 118 285 Z" fill="#388e3c" stroke="#1b5e20" stroke-width="2"/>
-    <path d="M123 225 C150 215 175 213 195 200" stroke="#1b5e20" stroke-width="1.5" fill="none"/>
+    <path d="M121 250 C160 225 190 235 200 215 C185 255 150 270 121 250 Z" fill="#43a047" stroke="#2e7d32" stroke-width="2"/>
+    <path d="M119 290 C80 265 50 275 40 255 C55 295 90 310 119 290 Z" fill="#43a047" stroke="#2e7d32" stroke-width="2"/>
     <!-- sepals -->
-    <path d="M92 138 C100 156 112 160 120 152 C128 160 140 156 148 138 C136 146 128 146 120 144 C112 146 104 146 92 138 Z" fill="#2e7d32"/>
-    <!-- bloom, side view -->
-    <path d="M72 88 C62 120 88 148 120 148 C152 148 178 120 168 88 C150 100 90 100 72 88 Z" fill="#9b1118" stroke="#5c0a0e" stroke-width="2"/>
-    <path d="M78 80 C66 50 86 22 112 26 C96 48 92 72 104 100 C88 98 80 92 78 80 Z" fill="#b71c1c" stroke="#5c0a0e" stroke-width="2"/>
-    <path d="M162 80 C174 50 154 22 128 26 C144 48 148 72 136 100 C152 98 160 92 162 80 Z" fill="#b71c1c" stroke="#5c0a0e" stroke-width="2"/>
-    <path d="M96 96 C86 60 100 18 120 16 C140 18 154 60 144 96 C132 108 108 108 96 96 Z" fill="#d32f2f" stroke="#5c0a0e" stroke-width="2"/>
-    <path d="M108 92 C104 66 112 40 120 38 C128 40 136 66 132 92 C126 98 114 98 108 92 Z" fill="#e53935" stroke="#5c0a0e" stroke-width="1.5"/>
-    <!-- highlights -->
-    <path d="M100 60 C100 48 106 36 112 30" stroke="#ff8a80" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>
-    <!-- dewdrops -->
-    <g fill="#bfe9ff" stroke="#6fb8e0" stroke-width="1.2" opacity="0.9">
-      <ellipse cx="108" cy="118" rx="4" ry="5.5"/>
-      <ellipse cx="146" cy="104" rx="3.5" ry="5"/>
-      <ellipse cx="160" cy="205" rx="3.5" ry="5"/>
-    </g>
-  </svg>
+    <path d="M85 140 C95 160 110 165 120 160 C130 165 145 160 155 140 C140 150 130 150 120 148 C110 150 100 150 85 140 Z" fill="#2e7d32"/>
+    <g class="bloom"><!-- outer petals -->
+    <path d="M70 100 C60 130 85 155 120 155 C155 155 180 130 170 100 C160 115 140 120 120 120 C100 120 80 115 70 100 Z" fill="#b71c1c" stroke="#7f0000" stroke-width="2"/>
+    <path d="M72 95 C55 60 85 35 105 45 C90 65 85 85 100 110 C85 110 75 105 72 95 Z" fill="#c62828" stroke="#7f0000" stroke-width="2"/>
+    <path d="M168 95 C185 60 155 35 135 45 C150 65 155 85 140 110 C155 110 165 105 168 95 Z" fill="#c62828" stroke="#7f0000" stroke-width="2"/>
+    <!-- inner petals -->
+    <path d="M95 112 C85 75 105 45 120 45 C135 45 155 75 145 112 C135 122 105 122 95 112 Z" fill="#d32f2f" stroke="#7f0000" stroke-width="2"/>
+    <path d="M105 105 C100 80 110 62 120 62 C130 62 140 80 135 105 C128 112 112 112 105 105 Z" fill="#e53935" stroke="#7f0000" stroke-width="2"/>
+    <path d="M112 62 C116 75 124 75 128 62 C124 55 116 55 112 62 Z" fill="#b71c1c"/>
+    <path d="M110 100 C116 88 126 88 132 100" stroke="#7f0000" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g></g></svg>
 </body>
 </html>
